@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">SlipKart</div>
+        <ul class="nav-links">
+            <li><a href="signin.html">SignIn</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h2>SignUp</h2>
+        <form class="form">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="username">Email:</label>
+                <input type="email" id="useremail" name="useremail" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <button onclick="singup()"  type="submit">SignUp</button>
+                <br>
+                <a href="./signin.html">already have an account logIn</a>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+<script>
+    function singup() {
+        event.preventDefault(); // Prevent the default form submission
+        console.log("sign up called")
+        // Fetch the values from the form
+        const username = document.getElementById('username').value;
+        const useremail = document.getElementById('useremail').value;
+        const password = document.getElementById('password').value;
+
+        // Prepare the data to send in the request
+        const formData = {
+            username,
+            useremail,
+            password,
+        };
+
+        // Send a POST request using the Fetch API
+        fetch('https://xenonbackenashish.onrender.com/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response data as needed
+            if(data.alreadyexist)
+            {
+                alert("account already exist with this email")
+            }
+            else{
+                alert("account created successfully LogIn now")
+                window.location.href = '/Frontend/signin.html#'; // Replace '/home' with your home page URL
+
+            }
+          
+            // console.log('Success:', data);
+
+            // You can redirect or perform additional actions based on the response
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    };
+</script>
+</html>

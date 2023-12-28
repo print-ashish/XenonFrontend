@@ -1,0 +1,113 @@
+<!doctype html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <title> Contact Us - Responsive Page Design</title> -->
+    <!-- <link rel="shortcut icon" type="image/jpg" href="/images/news2.png"/> -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@900&display=swap');
+    </style>
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="index.css">
+    </head>
+    <body>
+        <nav class="navbar">
+            <div class="logo">SlipKart</div>
+            <ul class="nav-links">
+                <li><a href="home.html">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+      
+        <!-- <section> -->
+
+       
+            <div class="container">
+                    <div class="contactForm">
+                        <h2>Send a Message</h2>
+                        <div class="formBox">
+                        <div class="inputBox w50">
+                            <input type="text" id="firstName"  required>
+                            <span>First Name</span>
+                        </div>
+                        <div class="inputBox w50">
+                            <input id="lastName" required>
+                            <span>Last Name</span>
+                        </div>
+                        <div class="inputBox w50">
+                            <input type="email"  id="email"  required>
+                            <span>Email Address</span>
+                        </div>
+                        <div class="inputBox w50">
+                            <input type="text"  id="mobileNumber"  required>
+                            <span>Mobile Number</span>
+                        </div>
+                        <div class="inputBox w100">
+                            <textarea id="message"  required></textarea>
+                            <span>Write your message here...</span>
+                        </div>
+                        <div class="inputBox w100">
+                            <input type="submit" onclick="submitForm()" value="Send">
+                        </div>
+                    </div>
+                </div>
+                    
+                    
+             
+        <!-- </section> -->
+    </body>
+    <script>
+        function submitForm() {
+            console.log("submitting form")
+            // Fetch the values from the form
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const mobileNumber = document.getElementById('mobileNumber').value;
+            const message = document.getElementById('message').value;
+
+            // Prepare the data to send in the request
+            const formData = {
+                firstName,
+                lastName,
+                email,
+                mobileNumber,
+                message
+            };
+
+            // Send a POST request using the Fetch API
+            fetch('https://xenonbackenashish.onrender.com/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response data as needed
+                console.log('Success:', data);
+                 // Redirect to the home page if the response is successful
+                 if (data.success) {
+                    alert("message sent successfully")
+                    window.location.href = '/Frontend/home.html#'; // Replace '/home' with your home page URL
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+
+    <!-- <script src="contact.js"></script> -->
+</html>
